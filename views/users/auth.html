@@ -1,0 +1,32 @@
+<? include_once("views/common/header.html"); ?>
+
+  <div class="container">
+    <div class="row form-center">
+      <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+        <div class="form-auth">
+          <div class="form-auth__label">Вход</div>
+          <div class="errors"><?= $this->checkErrors->showErrors($errors); ?></div>
+          <form id="formAuth" action="" method="post">
+            <div class="email">
+              <label for="email" class="form-label">Эл. почта</label>
+              <input type="email" class="form-control" id="email" name="email" value="<?= empty($_POST['email']) ? '' : $_POST['email']; ?>">
+            </div>
+            <div class="password">
+              <label for="password" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="password" name="password" value="<?= empty($_POST['password']) ? '' : $_POST['password']; ?>">
+            </div>
+            <div class="captcha">
+              <div class="g-recaptcha" data-sitekey="6LfJd-QmAAAAAD0EFGv_2cOqNH4zQjk7DoKiC2tU"></div>
+              <div class="text-danger" id="recaptchaError"></div>
+            </div>
+            <div class="button">
+              <button type="submit" class="button-auth">Войти</button>
+              <div class="button-reg"><a href="<?= FULL_SITE_ROOT . 'reg'; ?>" class="button-reg__link">Зарегистрироваться</a></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<? include_once("views/common/footer.html"); ?>

@@ -1,0 +1,13 @@
+@charset "utf-8";
+@import "all.min.css";
+@import "header.css";
+@import "main-page.css";
+@import "catalog.css";
+@import "item.css";
+@import "cart.css";
+@import "auth-reg.css";
+@import "mark.css";
+@import "orders.css";
+@import "admin.css";
+@import "about.css";
+@import "footer.css";

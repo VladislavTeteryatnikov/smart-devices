@@ -1,0 +1,38 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <a class="btn btn-primary" href="<?= FULL_SITE_ROOT . 'admin/manufacturer/add/'; ?>">Добавить</a>
+                <table class="table table-bordered admin-table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th> ID </th>
+                        <th> Производитель </th>
+                        <th> Действия </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <? foreach ($manufacturers as $manufacturer): ?>
+                    <tr>
+                        <td> <?= $manufacturer['manufacturer_id']; ?></td>
+                        <td> <?= $manufacturer['manufacturer_name']; ?></td>
+                        <td>
+                            <a class="btn btn-secondary" href="<?= FULL_SITE_ROOT . 'admin/manufacturer/edit/' . $manufacturer['manufacturer_id']; ?>">Редактировать</a>
+                            <button type="button" class="btn btn-danger" onclick="remove('admin/manufacturer', <?= $manufacturer['manufacturer_id']; ?>)">Удалить</button>
+                        </td>
+                    </tr>
+                    <? endforeach; ?>
+                    </tbody>
+                </table>
+
+                <? if ($total > $limit): ?>
+                <?= $pagination->get(); ?>
+                <? endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

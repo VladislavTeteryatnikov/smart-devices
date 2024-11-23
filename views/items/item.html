@@ -1,0 +1,152 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-4">
+        <div class="item">
+          <img src="<?= IMG . 'products/' . $product['product_img'] ?>" alt="<?= $product['product_name']; ?>" class="item__img">
+          <div class="errors"><?= $this->checkErrors->showErrors($errors); ?></div>
+        </div>
+
+      </div>
+      <div class="col-lg-8">
+        <div class="item__details">
+          <div class="item__title"><?= $product['product_name']; ?></div>
+          <div class="item__cart">
+            <div class="item__info">
+              <div class="item__info__rating">
+                <i class="icon-star fa-solid fa-star"></i>
+                <div class="rating__number"><?= $avgCountByProductId; ?></div>
+                <div class="rating__quantity"><a class="rate__quantity__link <?= !$countMarksByProductId['count'] ? 'disabled' : '' ?>" href="#reviews"><?= $countMarksByProductId['count']; ?> <i class="fa-solid fa-message"></i></a></div>
+              </div>
+              <div class="item__info__number">Артикул: <?= $product['product_code']; ?></div>
+              <div class="item__info__price">
+                <div class="price"><?= number_format($product['product_price'] - $product['product_sale'], 0, '', ' '); ?> &#8381;</div>
+                <? if($product['product_sale']): ?>
+                <div class="without-sale"><?= number_format($product['product_price'], 0, '', ' '); ?></div>
+                <? endif; ?>
+              </div>
+            </div>
+              <div class="item__btn"><button name="cart" class="item__btn__link" onclick="addToCart('cart', <?= $productId; ?>)">В корзину</button></div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="description">
+            <div class="title">Описание</div>
+            <div class="description__title"><?= $product['product_name']; ?></div>
+            <div class="description__info"><?= $product['product_description']; ?></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews">
+        <div class="title">Отзывы</div>
+          <div class="row">
+          <div class="col-lg-4">
+              <div class="rating-width">
+                <div class="rating-info">
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <div class="rating__number"><?= $avgCountByProductId; ?></div>
+                  <div class="rating__quantity"><?= $countMarksByProductId['count']; ?> отзыва(ов)</div>
+                </div>
+              <div class="stars">
+                <div class="five-star">
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                </div>
+
+                <div class="rating__number"><?= isset($mark5) ? round($mark5) : '0'; ?>%</div>
+              </div>
+              <div class="stars">
+                <div class="four-star">
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                </div>
+                <div class="rating__number"><?= isset($mark4) ? round($mark4) : '0'; ?>%</div>
+              </div>
+              <div class="stars">
+                <div class="three-star">
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                </div>
+                <div class="rating__number"><?= isset($mark3) ? round($mark3) : '0'; ?>%</div>
+              </div>
+              <div class="stars">
+                <div class="two-star">
+                  <i class="icon-star fa-solid fa-star"></i>
+                  <i class="icon-star fa-solid fa-star"></i>
+                </div>
+                <div class="rating__number"><?= isset($mark2) ? round($mark2) : '0'; ?>%</div>
+              </div>
+              <div class="stars">
+                <div class="one-star">
+                  <i class="icon-star fa-solid fa-star"></i>
+                </div>
+                <div class="rating__number"><?= isset($mark1) ? round($mark1) : '0'; ?>%</div>
+              </div>
+              <? if ($this->isAuthorized): ?>
+                <div class="add__review"><a href="<?= FULL_SITE_ROOT. 'mark/add'; ?>" class="add__review__link">Добавить отзыв</a></div>
+              <? endif; ?>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <? if ($marksByProductId): ?>
+              <? foreach ($marksByProductId as $mark): ?>
+              <div class="review-details" id="reviews">
+                <div class="review-details__user">
+                  <div class="user__avatar"><i class="fa-solid fa-user"></i></div>
+                  <div class="user__name"><?= $mark['user_name']; ?></div>
+                  <div class="user__review">
+                    <i class="icon-star fa-solid fa-star"></i>
+                    <div class="rate__number"><?= $mark['mark_value']; ?></div>
+                  </div>
+                </div>
+
+                <div class="review-details__date"><?= date("m-d-Y", strtotime($mark['mark_created'])); ?></div>
+                <? if($mark['mark_dignities']): ?>
+                <div class="review-details__dignities">
+                  <div class="review-details__title">Достоинства</div>
+                  <div class="dignities__info"><?= $mark['mark_dignities']; ?></div>
+                </div>
+                <? endif; ?>
+
+                <? if($mark['mark_disadvantages']): ?>
+                <div class="review-details__disadvantages">
+                  <div class="review-details__title">Недостатки</div>
+                  <div class="disadvantages__info"><?= $mark['mark_disadvantages']; ?></div>
+                </div>
+                <? endif; ?>
+
+                <div class="review-details__comment">
+                  <div class="review-details__title">Комментарий</div>
+                  <div class="comment__info"><?= $mark['mark_comment']; ?></div>
+                </div>
+
+              </div>
+            <? endforeach; ?>
+            <? else: ?>
+              <div class="no-reviews">На данный товар пока нет отзывов</div>
+            <? endif; ?>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

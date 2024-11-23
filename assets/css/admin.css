@@ -1,0 +1,11 @@
+.container{
+    padding: 0;
+}
+.admin-table{
+    font-size: .75rem;
+    text-align: center;
+}
+.btn{
+    font-size: .75rem;
+    margin: .25rem 0 .25rem ;
+}

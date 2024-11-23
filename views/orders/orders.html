@@ -1,0 +1,123 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="cart-title">Мои заказы</div>
+    </div>
+
+    <div class="row">
+      <!--Если у клиента есть заказ(ы), то формируем таблицу-->
+      <? if ($carts): ?>
+      <table class="table table-bordered text-center">
+        <thead class="table-primary">
+        <tr>
+          <!--<th> № заказа </th>-->
+          <th> <?php echo $this->helper->sortLinkTh('№ заказа', 'id_asc', 'id_desc'); ?></th>
+          <th> Товары </th>
+          <th> Количество </th>
+          <th> Сумма заказа </th>
+          <th> Дата получения </th>
+          <th> Способ получения </th>
+          <th> Статус заказа </th>
+        </tr>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        for ($i = 0; $i < $countCarts; $i++) {
+
+          //Заходим в это условие только если id заказа встречается первый раз. Если в заказе несколько позиций, то ниже в цикле while уже был сформирован rowspan для объединения строк в таблице
+          if ($i >= $rowSpanEnd) {
+
+          //ID текущего заказа
+          $current = $carts[$i]['order_id'];
+
+          //Данные для rowspan, если в одном заказе несколько позиций
+          $rowSpanStart = $i;
+          $rowSpanEnd = $i + 1;
+
+          //Абстрактная переменная для перебора массива
+          $next = 1;
+
+            //Перебираем весь массив с carts
+            while ($next < $countCarts) {
+              //Первая проверка нужна, чтобы проверять только существующие ключи, во второй проверяем, если id этого carts и следующего совпадают, то увеличиваем переменную отвечающую за rowspan в таблице
+              if ($i + $next < $countCarts && $current === $carts[$i + $next]['order_id']) {
+                $rowSpanEnd += 1;
+              }
+            $next++;
+            }
+          }
+        ?>
+        <tr>
+          <?php
+            //Один раз формируем td с атрибутом rowspan, если значение этого атрибута > 1
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+              $size = $rowSpanEnd - $rowSpanStart;
+          ?>  <td rowspan="<?= $size; ?>"><?= $carts[$i]['order_id']; ?></td>
+          <?php
+            //Если rowspan=1, то формируем обычный td
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['order_id']; ?></td>
+          <?php
+            }
+            ?>
+          <td><?= $carts[$i]['product_name']; ?></td>
+          <td><?= $carts[$i]['cart_product_count']; ?></td>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= number_format((($carts[$i]['product_price'] - $carts[$i]['product_sale']) * $carts[$i]['cart_product_count'] + (($carts[$i+1]['product_price'] - $carts[$i+1]['product_sale']) * $carts[$i+1]['cart_product_count'])), 0, '', ' '); ?> &#8381;</td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= number_format(($carts[$i]['product_price'] - $carts[$i]['product_sale']) * $carts[$i]['cart_product_count'], 0, '', ' '); ?> &#8381;</td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= date("d-m-Y", strtotime($carts[$i]['order_delivery_time'])); ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= date("d-m-Y", strtotime($carts[$i]['order_delivery_time'])); ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['delivery_name']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['delivery_name']; ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['status_name']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['status_name']; ?></td>
+          <?php
+            }
+            ?>
+        </tr>
+        <?php
+    }
+    ?>
+        </tbody>
+      </table>
+      <? else: ?>
+      <!--Если у клиента нет заказов-->
+      <div class="">Список заказов пуст</div>
+      <? endif; ?>
+    </div>
+
+  </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

@@ -1,0 +1,23 @@
+.container{
+    padding: 0;
+}
+.form-mark{
+    padding-bottom: 3rem;
+    background-color: #ffffff;
+    border-radius: .5rem;
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.3);
+}
+.form-mark__label{
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    padding: 1.25rem 4rem;
+    background-color: #EDF2F6;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.marks,
+.dignities,
+.disadvantages,
+.comment{
+    margin: 1.25rem 4rem;
+}

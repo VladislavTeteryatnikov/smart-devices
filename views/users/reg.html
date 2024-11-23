@@ -1,0 +1,46 @@
+<? include_once("views/common/header.html"); ?>
+
+    <div class="container">
+        <div class="row form-center">
+            <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+                <div class="form-auth">
+                    <div class="form-auth__label">Регистрация</div>
+                    <div class="errors"><?= $this->checkErrors->showErrors($errors); ?></div>
+                    <form action="" method="post">
+                        <div class="name">
+                            <label for="name" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= empty($_POST['name']) ? '' : $_POST['name']; ?>">
+                        </div>
+                        <div class="email">
+                            <label for="email" class="form-label">Эл. почта</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= empty($_POST['email']) ? '' : $_POST['email']; ?>">
+                        </div>
+                        <div class="password">
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="password" name="password" value="<?= empty($_POST['password']) ? '' : $_POST['password']; ?>">
+                        </div>
+                        <div class="password">
+                            <label for="repeat_password" class="form-label">Повторите пароль</label>
+                            <input type="password" class="form-control" id="repeat_password" name="repeat_password" value="<?= empty($_POST['repeat_password']) ? '' : $_POST['repeat_password']; ?>">
+                        </div>
+                        <div class="form-check agree-reg">
+                            <input class="form-check-input form__checkbox__input" type="checkbox" name="agree" id="agree" >
+                            <label class="form-check-label" for="agree">
+                                Я согласен на обработку персональных данных
+                            </label>
+                        </div>
+                        <div class="captcha">
+                            <div class="g-recaptcha" data-sitekey="6LfJd-QmAAAAAD0EFGv_2cOqNH4zQjk7DoKiC2tU"></div>
+                            <div class="text-danger" id="recaptchaError"></div>
+                        </div>
+                        <div class="button">
+                            <button type="submit" class="button-auth">Зарегистрироваться</button>
+                            <div class="button-reg"><a href="<?= FULL_SITE_ROOT . 'auth'; ?>" class="button-reg__link">Я уже зарегистрирован</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<? include_once("views/common/footer.html"); ?>

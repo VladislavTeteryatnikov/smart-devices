@@ -1,0 +1,38 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <a class="btn btn-primary" href="<?= FULL_SITE_ROOT . 'admin/category/add/'; ?>">Добавить</a>
+                <table class="table table-bordered admin-table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th> ID </th>
+                            <th> Категория </th>
+                            <th> Действия </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <? foreach ($categories as $category): ?>
+                            <tr>
+                                <td> <?= $category['category_id']; ?></td>
+                                <td> <?= $category['category_name']; ?></td>
+                                <td>
+                                    <a class="btn btn-secondary" href="<?= FULL_SITE_ROOT . 'admin/category/edit/' . $category['category_id']; ?>">Редактировать</a>
+                                    <button type="button" class="btn btn-danger" onclick="remove('admin/category', <?= $category['category_id']; ?>)">Удалить</button>
+                                </td>
+                            </tr>
+                        <? endforeach; ?>
+                    </tbody>
+                </table>
+
+            <? if ($total > $limit): ?>
+            <?= $pagination->get(); ?>
+            <? endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

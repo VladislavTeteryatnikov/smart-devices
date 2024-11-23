@@ -1,0 +1,9 @@
+.container{
+    padding: 0;
+}
+.table{
+    vertical-align: middle;
+}
+.table tbody{
+    background-color: #ffffff;
+}

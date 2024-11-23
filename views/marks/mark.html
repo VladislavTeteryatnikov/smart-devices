@@ -1,0 +1,42 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="container">
+  <div class="row form-center">
+    <div class="col-lg-4 col-md-6 col-sm-8 col-104">
+      <div class="form-mark">
+        <div class="form-mark__label">Новый отзыв</div>
+        <div class="errors"><?= $this->checkErrors->showErrors($errors); ?></div>
+        <form action="" method="post">
+          <div class="marks">
+            <label for="mark" class="form-label">Ваша оценка</label>
+            <select class="form-label" id="mark" name="mark">
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          <div class="dignities">
+            <label for="dignities" class="form-label">Достоинства</label>
+            <textarea class="form-control" id="dignities" name="dignities" rows="3"></textarea>
+          </div>
+          <div class="disadvantages">
+            <label for="disadvantages" class="form-label">Недостатки</label>
+            <textarea class="form-control" id="disadvantages" name="disadvantages" rows="3"></textarea>
+          </div>
+          <div class="comment">
+            <label for="comment" class="form-label">Комментарий</label>
+            <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
+          </div>
+          <div class="button">
+            <button type="submit" class="button-auth">Оставить отзыв</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

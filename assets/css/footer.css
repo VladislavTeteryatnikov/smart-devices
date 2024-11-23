@@ -1,0 +1,51 @@
+@charset "utf-8";
+.main-footer{
+    flex: 0 0 auto;
+}
+.footer__content{
+    background: #012A4A;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+.footer__block{
+    padding: 1rem;
+}
+.footer__heading{
+    padding-left: 1rem;
+    text-transform: uppercase;
+    color: #EDF2F4;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: .025em;
+    line-height: 1.2;
+}
+.footer__logo{
+    display: block;
+    margin-bottom: 1.5rem;
+}
+.footer__org{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.footer__logo__item {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+.footer__copyright{
+    color: #EDF2F4;
+}
+.address{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem
+}
+.address__item {
+    color: #7f7f7f;
+    text-decoration: none;
+    transition: all .5s ease-in-out;
+}
+.socials{
+    display: flex;
+    justify-content: flex-start;
+}

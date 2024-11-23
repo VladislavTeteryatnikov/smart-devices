@@ -1,0 +1,153 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+  <div class="container">
+
+    <div class="row">
+      <? if ($carts): ?>
+      <table class="table table-bordered admin-table">
+        <thead class="table-dark ">
+        <tr>
+          <th> № заказа </th>
+          <th> ID пользователя </th>
+          <th> Товары </th>
+          <th> Количество </th>
+          <th> Сумма заказа </th>
+          <th> Адрес </th>
+          <th> Дата оформления </th>
+          <th> Дата получения </th>
+          <th> Способ оплаты </th>
+          <th> Способ получения </th>
+          <th> Статус заказа </th>
+        </thead>
+        <tbody>
+        <!--Комментарии можно посмотреть в orders/orders.html-->
+        <?php
+        for ($i = 0; $i < count($carts); $i++) {
+          if ($i >= $rowSpanEnd) {
+          $current = $carts[$i]['order_id'];
+          $rowSpanStart = $i;
+          $rowSpanEnd = $i + 1;
+          $next = 1;
+
+            while ($next < 4) {
+              if ($i + $next < $countCarts && $current === $carts[$i + $next]['order_id']) {
+              $rowSpanEnd += 1;
+              }
+            $next++;
+            }
+          }
+        ?>
+        <tr>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['order_id']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['order_id']; ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['order_user_id']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['order_user_id']; ?></td>
+          <?php
+            }
+            ?>
+          <td><?= $carts[$i]['product_name']; ?></td>
+          <td><?= $carts[$i]['cart_product_count']; ?></td>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= number_format((($carts[$i]['product_price'] - $carts[$i]['product_sale']) * $carts[$i]['cart_product_count'] + (($carts[$i+1]['product_price'] - $carts[$i+1]['product_sale']) * $carts[$i+1]['cart_product_count'])), 0, '', ' '); ?> &#8381;</td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= number_format(($carts[$i]['product_price'] - $carts[$i]['product_sale']) * $carts[$i]['cart_product_count'], 0, '', ' '); ?> &#8381;</td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['order_address']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['order_address']; ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= date("d-m-Y", strtotime($carts[$i]['order_registration_time'])); ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= date("d-m-Y", strtotime($carts[$i]['order_registration_time'])); ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= date("d-m-Y", strtotime($carts[$i]['order_delivery_time'])); ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= date("d-m-Y", strtotime($carts[$i]['order_delivery_time'])); ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['payment_name']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['payment_name']; ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['delivery_name']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['delivery_name']; ?></td>
+          <?php
+            }
+            ?>
+          <?php
+            if ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart > 1)) {
+          $size = $rowSpanEnd - $rowSpanStart;
+          ?>    <td rowspan="<?= $size; ?>"><?= $carts[$i]['status_name']; ?></td>
+          <?php
+            } elseif ($i === $rowSpanStart && ($rowSpanEnd - $rowSpanStart === 1)) {
+                ?>    <td><?= $carts[$i]['status_name']; ?></td>
+          <?php
+            }
+            ?>
+        </tr>
+        <?php
+    }
+    ?>
+        </tbody>
+      </table>
+
+      <? if ($total > $limit): ?>
+        <?= $pagination->get(); ?>
+      <? endif; ?>
+
+      <? else: ?>
+        <div class="">Список заказов пуст</div>
+      <? endif; ?>
+    </div>
+
+  </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

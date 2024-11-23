@@ -1,0 +1,67 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <form method="get" class="col-lg-10 offset-lg-1 col-md-8 offset-md-2 form-filter">
+          <div class="mb-3">
+            <div class="form__price">Цена, &#8381;</div>
+            <div class="form__price__details">
+              <label for="price-from" class="form-label">от</label>
+              <input type="number" class="form-control form__price__details__input" id="price-from" name="pfrom" value="<?= isset($_GET['pfrom']) ? $_GET['pfrom'] : $priceMin ?>">
+
+              <label for="price-to" class="form-label">до</label>
+              <input type="number" class="form-control form__price__details__input" id="price-to" name="pto" value="<?= isset($_GET['pto']) ? $_GET['pto'] : $priceMax ?>">
+            </div>
+          </div>
+
+          <div class="form__manufacturer">Производитель</div>
+          <? foreach ($manufacturersForCheckbox as $manufacturerForCheckbox): ?>
+          <div class="form-check form__checkbox">
+            <input class="form-check-input form__checkbox__input" type="checkbox" value="<?= $manufacturerForCheckbox; ?>" name="manufacturer[]" id="<?= $manufacturerForCheckbox; ?>" <?= isset($_GET['manufacturer']) && in_array($manufacturerForCheckbox, $manufacturersFilter) ? 'checked' : '' ?>>
+            <label class="form-check-label" for="<?= $manufacturerForCheckbox; ?>">
+              <?= $manufacturerForCheckbox; ?>
+            </label>
+          </div>
+          <? endforeach; ?>
+
+          <button type="submit" class="btn-filter">Применить</button>
+        </form>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="row">
+        <div class=""><?= $nothingFound ?></div>
+          <? foreach ($products as $product): ?>
+          <div class="col-xl-4 col-lg-6 offset-lg-0 col-md-8 offset-md-2 col-xs-12">
+            <div class="card-item min-height">
+              <div class="">
+                <div class="card-item__img"><img src="<?= IMG . 'products/' . $product['product_img'] ?>" alt="product"></div>
+                <div class="card-item__title"><?= $product['product_name']; ?></div>
+              </div>
+              <div class="card-item__info">
+                <div class="card-item__info__price">
+                <? if($product['product_sale']): ?>
+                  <div class="nosale"><?= number_format($product['product_price'], 0, '', ' '); ?></div>
+                <? endif; ?>
+                  <div class="sale"><?= number_format($product['product_price'] - $product['product_sale'], 0, '', ' '); ?> &#8381;</div>
+                </div>
+                <div class="card-item__info__more">
+                  <a href="<?= FULL_SITE_ROOT . 'item/' . $product['product_id']; ?>" class="card-item__info__more__link">Подробнее</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <? endforeach; ?>
+
+        </div>
+      </div>
+      <?= $pagination->get(); ?>
+    </div>
+  </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

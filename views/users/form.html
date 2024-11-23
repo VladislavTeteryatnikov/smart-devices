@@ -1,0 +1,30 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <p><?= $this->checkErrors->showErrors($errors); ?></p>
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name_user" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="name_user" name="user_name" value="<?= isset ($user) ? $user['user_name'] : '';  ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email_user" class="form-label">Почта</label>
+                        <input type="email" class="form-control" id="email_user" name="user_email" value="<?= isset ($user) ? $user['user_email'] : '';  ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="user_is_admin" class="form-label">Права администратора</label>
+                        <input type="number" class="form-control" id="user_is_admin" name="user_is_admin" value="<?= isset ($user) ? $user['user_is_admin'] : '';  ?>">
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Изменить </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? include_once("views/common/footer.html"); ?>

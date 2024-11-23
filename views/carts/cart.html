@@ -1,0 +1,122 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="cart-title">Оформление заказа</div>
+        </div>
+
+    <? if (isset($productsCart)): ?>
+        <div class="row">
+            <div id="cartItem" class="col-lg-8">
+                <? foreach ($productsCart as $productCart): ?>
+                <? $id = $productCart['product_id']; ?>
+                <? for ($i = 1; $data[$id] >= $i; $i++): ?>
+                    <div class="cart-item">
+                        <div class="item-desc">
+                            <div class="product"><img src="<?= IMG . 'products/' . $productCart['product_img'] ?>" alt="" class="item-img"></div>
+                            <div class="item-info">
+                                <div class="item-info__name"><a href="<?= FULL_SITE_ROOT . 'item/' . $productCart['product_id']; ?>" class="item-info__name__link"><?= $productCart['product_name']; ?></a></div>
+                                <div class="item__info__price">
+                                    <div class="cart__price"><span class="cart__price__number"><?= number_format($productCart['product_price'] - $productCart['product_sale'], 0, '', ' '); ?></span>  &#8381;</div>
+                                    <? if($productCart['product_sale']): ?>
+                                    <div class="cart__without-sale"><span class="cart__without-sale__number"><?= number_format($productCart['product_price'], 0, '', ' '); ?></span></div>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="item-delete"><button type="button" class="item-delete__btn" onclick="deleteCart('cart', <?= $productCart['product_id']; ?>)"><i class="item-delete__icon fa-regular fa-trash-can"></i></button></div>
+                    </div>
+                <? endfor; ?>
+                <? endforeach; ?>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="total">
+                    <div class="total__title">Итого</div>
+                    <div class="total__items">
+                        <div class="total__items__quantity"><span class="total__items__quantity__number"><?= $totalItems; ?></span> шт. на сумму</div>
+                        <div class="total__items__price"><span class="total__items__price__number"><?= number_format($totalPrice, 0, '', ' '); ?></span> &#8381;</div>
+                    </div>
+                    <div class="total__sale">
+                        <div class="total__sale__title">Скидка</div>
+                        <div class="total__sale__price"><span class="total__sale__price__number"><?= number_format($totalSale, 0, '', ' '); ?></span> &#8381;</div>
+                    </div>
+                    <div class="total__pay">
+                        <div class="total__pay__title">К оплате</div>
+                        <div class="total__pay__price"><span class="total__pay__price__number"><?= number_format($totalCost, 0, '', ' '); ?></span> &#8381;</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="cart-title">Детали заказа</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="order-details">
+                    <div class="delivery__title">Способ получения</div>
+                    <form class="cart" action="" method="post">
+                        <div class="form-cart">
+                            <input class="form-check-input radio" type="radio" name="delivery" id="delivery" value="1" checked>
+                            <label class="form-check-label radio-label" for="delivery">
+                                Доставка
+                            </label>
+                        </div>
+                        <div class="form-cart">
+                            <input class="form-check-input radio" type="radio" name="delivery" id="pickup" value="2">
+                            <label class="form-check-label radio-label" for="pickup">
+                                Самовывоз
+                            </label>
+                        </div>
+
+                        <div class="delivery__title">Оплата</div>
+
+                        <div class="form-cart">
+                            <input class="form-check-input radio" type="radio" name="payment" id="online-site" value="1" checked>
+                            <label class="form-check-label radio-label" for="online-site">
+                                Онлайн оплата на сайте
+                            </label>
+                        </div>
+                        <div class="form-cart">
+                            <input class="form-check-input radio" type="radio" name="payment" id="card" value="2">
+                            <label class="form-check-label radio-label" for="card">
+                                Картой при получении
+                            </label>
+                        </div>
+                        <div class="form-cart">
+                            <input class="form-check-input radio" type="radio" name="payment" id="cash" value="3">
+                            <label class="form-check-label radio-label" for="cash">
+                                Наличными при получении
+                            </label>
+                        </div>
+
+                        <div class="delivery__title">Адрес и дата</div>
+                        <div class="">
+                            <input class="address-delivery" type="text" placeholder="г. Санкт-Петербург, ул. Невский проспект, д. 1, кв. 1" name="address-delivery">
+                        </div>
+                        <div class="">
+                            <input class="date-delivery" type="date" placeholder="дд.мм.гггг" name="date-delivery">
+                        </div>
+
+                        <button class="order-btn" type="submit">Оформить заказ</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    <? else: ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="">Корзина пуста</div>
+            </div>
+        </div>
+    <? endif; ?>
+
+    </div>
+</div>
+<? include_once("views/common/footer.html"); ?>

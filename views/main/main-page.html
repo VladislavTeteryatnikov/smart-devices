@@ -1,0 +1,99 @@
+<? include_once("views/common/header.html"); ?>
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="slider">
+                <div id="carouselExampleIndicators" class="carousel slide col-lg-9" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="<?= FULL_SITE_ROOT . 'item/14' ?>">
+                                <img src="assets/img/sliders/apple_iphone_14pro.jpg" class="d-block w-100 h-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="<?= FULL_SITE_ROOT . 'item/2' ?>">
+                                <img src="assets/img/sliders/apple_macbook_air.jpg" class="d-block w-100 h-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="<?= FULL_SITE_ROOT . 'item/30' ?>">
+                                <img src="assets/img/sliders/samsung_galaxy_s23_ultra.jpg" class="d-block w-100 h-100" alt="...">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="<?= FULL_SITE_ROOT . 'item/29' ?>">
+                                <img src="assets/img/sliders/apple_watch.jpg" class="d-block w-100 h-100" alt="...">
+                            </a>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sale col-lg-12 col-md-6">
+                <div class="cart-title">Скидки</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='demo-container'>
+                <div class='carousel'>
+                    <input checked='checked' class='activator' id='carousel-slide-activator-1' name='carousel' type='radio'>
+                    <input class='activator' id='carousel-slide-activator-2' name='carousel' type='radio'>
+                    <input class='activator' id='carousel-slide-activator-3' name='carousel' type='radio'>
+                    <div class='controls'>
+                        <label class='control control--forward' for='carousel-slide-activator-2'>&#8250;</label>
+                    </div>
+                    <div class='controls'>
+                        <label class='control control--backward' for='carousel-slide-activator-1'>&#8249;</label>
+                    </div>
+
+                    <div class='screen row'>
+                        <div class='track'>
+                            <? foreach ($products as $product): ?>
+                            <div class='item item--mobile-in-1 item--tablet-in-2 item--desktop-in-3 '>
+                                <div class="">
+                                    <div class="card-item ">
+                                        <div class="">
+                                            <div class="card-item__img"><img src="<?= IMG . 'products/' . $product['product_img'] ?>" alt="product"></div>
+                                            <div class="card-item__title"><?= $product['product_name']; ?></div>
+                                        </div>
+                                        <div class="card-item__info">
+                                            <div class="card-item__info__price">
+                                                <? if($product['product_sale']): ?>
+                                                <div class="nosale"><?= number_format($product['product_price'], 0, '', ' '); ?></div>
+                                                <? endif; ?>
+                                                <div class="sale"><?= number_format($product['product_price'] - $product['product_sale'], 0, '', ' '); ?> &#8381;</div>
+                                            </div>
+                                            <div class="card-item__info__more">
+                                                <a href="<?= FULL_SITE_ROOT . 'item/' . $product['product_id']; ?>" class="card-item__info__more__link">Подробнее</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <? endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<? include_once("views/common/footer.html"); ?>
