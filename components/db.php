@@ -22,7 +22,7 @@
         }
 
         /**
-         * @return false|mysqli|null Возвращает свойство, в котором хранится подключение к БД
+         * @return false|mysqli|null Подключение к БД
          */
         public static function getConnect()
         {

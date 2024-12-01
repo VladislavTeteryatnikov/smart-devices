@@ -32,7 +32,7 @@
         }
 
         /**
-         * Метод, который выводит view 'Корзина'
+         * Выводит view 'Корзина'
          */
         public function actionIndex()
         {
@@ -92,52 +92,4 @@
             include_once("views/carts/cart.html");
         }
 
-        /**
-         * Данный метод больше не нужен, так как переписал его на js
-         * Метод устаналивает куки с информацией о товарах в корзине (ID товара и его количество)
-         * @param int $productId ID товара, который пользователь добаляет в корзину
-         */
-        /*public function actionAdd($productId)
-        {
-            //В куке, отвечающей за корзину лежит массив в формате json. Индекс элемента - ID товара, значение - количество этого товара в корзине.
-            //Если кука, отвечающая за корзину есть, то проверяем есть ли в массиве элемент с индексом = ID товара. Если есть, то увеличиваем значение на 1, если нет - создаем новый элемент массива. Если куки нет, то создаем массив. Затем устанавливаем или обновляем куку
-            if (isset($_COOKIE['cart'])){
-                $data = json_decode($_COOKIE['cart'], true);
-                if ( array_key_exists($productId, $data)){
-                    $data[$productId]++;
-                } else {
-                    $data[$productId] = 1;
-                }
-            } else {
-                $data[$productId] = 1;
-            }
-            setcookie('cart', json_encode($data), time() + 60 * 60 * 24 * 2, '/');
-            header('Location:' . FULL_SITE_ROOT . 'item/' . $productId);
-        }*/
-
-        /**
-         * Метод обновляет куку, отвечающую за корзину, при удалении товара из нее
-         * @param int $id ID товара, который нужно удалить из корзины
-         */
-        /*public function actionDelete($id)
-        {
-            //Забираем куку, отвечающую за корзину. Если колиство товара с одним ID > 1, то уменьшаем количество этого товара на 1 и обновляем куку. Если товар с таким ID был 1, то удаляем этот элемент из массива. Если массив остается пустым, то куку удаляем, иначе просто обновляем
-            if (isset($_COOKIE['cart'])) {
-                $data = json_decode($_COOKIE['cart'], true);
-
-                if ($data[$id] > 1) {
-                    $data[$id] -= 1;
-                    setcookie('cart', json_encode($data), time() + 60 * 60 * 24 * 2, '/');
-                } else {
-                    unset($data[$id]);
-                    if (empty($data)) {
-                        setcookie('cart', '', time() - 1000, '/');
-                    } else {
-                        setcookie('cart', json_encode($data), time() + 60 * 60 * 24 * 2, '/');
-                    }
-                }
-            }
-
-            header('Location:' . FULL_SITE_ROOT . 'cart');
-        }*/
     }

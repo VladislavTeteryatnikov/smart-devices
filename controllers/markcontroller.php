@@ -19,16 +19,8 @@
             $this->markModel = new Mark();
         }
 
-        /*public function getMark($productId)
-        {
-            $marksByProduct = $this->markModel->getByProductId($productId);
-            $markCount = $this->markModel->getCountByProductId($productId);
-            $markAvg = $this->markModel->getAvgByProductId($productId);
-            return $markCount;
-        }*/
-
         /**
-         * Метод для добавления отзыва на продукт. Выводит view с формой для написания отзыва
+         * Добавление отзыва на продукт. Выводит view с формой для написания отзыва
          */
         public function actionAdd()
         {

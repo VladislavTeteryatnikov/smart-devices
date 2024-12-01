@@ -1,18 +1,19 @@
 <?php
 
     /**
-     * Класс маршрутизатор. Определяет контроллер и метод в зависимости от переданного URL
+     * Класс маршрутизатор. Определяет controller и action в зависимости от переданного URL
      */
 
     class Router
     {
         /**
-         * Массив маршрутов
-         *
-         * @var array
+         * @var array Массив маршрутов
          */
         private $routes;
 
+        /**
+         * Конструктор
+         */
         public function __construct()
         {
             require_once("configs/routes.php");
@@ -20,11 +21,11 @@
         }
 
         /**
-         * Данный метод создает экземпляр контроллера и вызывает у него необходимый action в зависимости от переданного URL
+         * Создает экземпляр контроллера и вызывает у него необходимый action в зависимости от переданного URL
          */
         public function run()
         {
-            //Получаем адрес страницы, на которую перешел пользователь. Например, MVC_digital_technology/manufactuters
+            //Получаем адрес страницы, на которую перешел пользователь. Например, smart-devices/manufactuters
             $requestedUrl = $_SERVER['REQUEST_URI'];
             //Перебираем $routes как controllers (ManufacturerController, CategoryController и тд)
             foreach ($this->routes as $controller => $paths) {
@@ -33,7 +34,6 @@
                     //Если находим совпадение url из routes в url, который ввел пользователь
                       if (preg_match("~$url~", $requestedUrl)) {
                     //Если путь совпадает с тем, что ввел пользователь из $_SERVER, значит определили нужный контроллер и его action
-                    //if (SITE_ROOT . $url === $requestedUrl) {
                          //Получаем action с конкретным параметром.
                          $actionWithParameters = preg_replace("~$url~", $actionWithParameters, $requestedUrl);
                          $count = 1;
@@ -48,11 +48,12 @@
                         $requestedController = new $controller();
                         //Присваиваем переменной имя нужного action в формате "actionIndex"
                         $requestedAction = "action" . ucfirst($action);
-                        //Вызываем у объекта нужный метод (то есть мы получили нужный контроллер и нужный action)
-                        //$requestedController->$requestedAction();
+
                           //TODO: сделать 404
                           if (!method_exists($requestedController, $requestedAction)) {
-                              echo 404;
+                              header("HTTP/1.0 404 Not Found");
+                              header("HTTP/1.1 404 Not Found");
+                              header("Status: 404 Not Found");
                               die();
                           }
                         //Вызываем метод у объекта, передавая в этот метод параметры

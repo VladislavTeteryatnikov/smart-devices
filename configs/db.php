@@ -1,9 +1,9 @@
 <?php
 
     $db = array(
-        'HOST' => '',
-        'USER' => '',
+        'HOST' => 'localhost',
+        'USER' => 'root',
         'PASSWORD' => '',
-        'DB_NAME' => '',
+        'DB_NAME' => 'smart_devices',
         'CHARSET' => 'utf8'
     );

@@ -27,7 +27,7 @@
         }
 
         /**
-         * Метод, который выводит view определенного товара
+         * Выводит view определенного товара
          * @param int $productId ID товара
          */
         public function actionIndex($productId)

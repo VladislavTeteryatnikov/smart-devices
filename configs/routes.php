@@ -1,6 +1,5 @@
 <?php
 
-    //Массив, в котором храним контроллеры. У каждого контроллера есть action, который вызывается в зависимости от того, какой url вел пользователь
     $routes = array (
         'CatalogController' => array(
             'catalog/([0-9]+)/page=([0-9]+)' => 'index/$1/$2',
@@ -10,7 +9,6 @@
             'about' => 'index'
         ),
         'ItemController' => array(
-            /*'item/([0-9]+)/add' => 'add/$1',*/
             'item/([0-9]+)' => 'index/$1'
         ),
         'CartController' => array(
