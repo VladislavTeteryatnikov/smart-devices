@@ -6,5 +6,5 @@ node_modules/
 #Ignored files
 .DS_Store
 Thumbs.db
-dektop.ini
+desktop.ini
 package-lock.json
